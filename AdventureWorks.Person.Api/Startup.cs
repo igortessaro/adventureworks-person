@@ -1,9 +1,14 @@
+using AdventureWorks.Person.Domain.Services;
+using AdventureWorks.Person.Domain.Services.Abstraction;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Linq;
 
 namespace AdventureWorks.Person.Api
 {
@@ -23,6 +28,8 @@ namespace AdventureWorks.Person.Api
             _ = services.AddPersonContext(this.Configuration.GetConnectionString("PersonDbConnection"));
             _ = services.AddInfrastructureRepositories();
             _ = services.AddInfrastructureAutoMapper();
+            _ = services.AddTransient<IPersonService, PersonService>();
+            _ = services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("AdventureWorks.Person")).ToArray());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

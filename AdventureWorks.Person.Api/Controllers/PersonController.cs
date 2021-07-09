@@ -1,4 +1,5 @@
-﻿using AdventureWorks.Person.Domain.Repositories;
+﻿using AdventureWorks.Person.Domain.Commands.Person;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -8,17 +9,17 @@ namespace AdventureWorks.Person.Api.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IMediator _mediator;
 
-        public PersonController(IPersonRepository personRepository)
+        public PersonController(IMediator mediator)
         {
-            this._personRepository = personRepository;
+            this._mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _personRepository.GetAll();
+            var result = await _mediator.Send(new PersonQuery(true, string.Empty));
 
             return Ok(result);
         }
@@ -26,9 +27,15 @@ namespace AdventureWorks.Person.Api.Controllers
         [HttpGet("{firstName}/complete")]
         public async Task<IActionResult> GetComplete(string firstName)
         {
-            var result = await _personRepository.GetCompleteByName(firstName);
+            var result = await _mediator.Send(new PersonQuery(false, firstName));
 
-            // --
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreatePersonCommand person)
+        {
+            var result = await _mediator.Send(person);
 
             return Ok(result);
         }

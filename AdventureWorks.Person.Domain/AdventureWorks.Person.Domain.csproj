@@ -9,7 +9,10 @@
     <Folder Include="Extensions\" />
     <Folder Include="Facades\" />
     <Folder Include="Gateways\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
