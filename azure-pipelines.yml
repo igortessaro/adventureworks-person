@@ -44,7 +44,7 @@ stages:
           **\*test*.dll
           !**\*TestAdapter.dll
           !**\obj\**
-          **\AdventureWorks.Person.**
+          **\**Tests.csproj**
         searchFolder: '$(System.DefaultWorkingDirectory)'
         testRunTitle: 'unit-test'
         platform: '$(buildPlatform)'
