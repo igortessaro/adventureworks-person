@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Person.Api",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Person.Infrastructure", "AdventureWorks.Person.Infrastructure\AdventureWorks.Person.Infrastructure.csproj", "{342F67D9-016E-4643-9B0B-25515E1086DC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{E4548912-E784-42DC-9EF3-E81F0DF8C0B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Person.Domain.Tests", "AdventureWorks.Person.Domain.Tests\AdventureWorks.Person.Domain.Tests.csproj", "{7E9D6466-12B5-4444-AB23-4BF5F76879C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{342F67D9-016E-4643-9B0B-25515E1086DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{342F67D9-016E-4643-9B0B-25515E1086DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{342F67D9-016E-4643-9B0B-25515E1086DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E9D6466-12B5-4444-AB23-4BF5F76879C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E9D6466-12B5-4444-AB23-4BF5F76879C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E9D6466-12B5-4444-AB23-4BF5F76879C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E9D6466-12B5-4444-AB23-4BF5F76879C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,7 @@ Global
 		{0303728D-A39D-481C-AD69-54BE8A25D1E0} = {13730885-2533-4A9C-A1CE-306FE55899E7}
 		{046F593A-C46D-472E-91D8-6D6D1F614DE8} = {F1739E35-F9F1-4B39-B1EE-12D55FF1513C}
 		{342F67D9-016E-4643-9B0B-25515E1086DC} = {8DDC10A9-7FB2-4EBB-91DE-04130EA6F54E}
+		{7E9D6466-12B5-4444-AB23-4BF5F76879C3} = {E4548912-E784-42DC-9EF3-E81F0DF8C0B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C07EA452-C7B5-4142-820E-CBA6E34087A8}
