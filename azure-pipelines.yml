@@ -15,7 +15,7 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: prepare build
+- stage: PrepareBuild
   jobs:
   - job: nuget-restore
     steps:
@@ -24,7 +24,7 @@ stages:
       inputs:
         restoreSolution: '$(solution)'
 
-- stage: varify build
+- stage: VerifyBuild
   jobs:
   - job: build
     steps:
@@ -35,7 +35,7 @@ stages:
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
 
-- stage: unit test
+- stage: UnitTest
   jobs:
   - job: ms-tests
     steps:
