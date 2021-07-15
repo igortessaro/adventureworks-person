@@ -17,7 +17,7 @@ variables:
 stages:
 - stage: PrepareBuild
   jobs:
-  - job: nuget-restore
+  - job: NugetRestore
     steps:
     - task: NuGetToolInstaller@1
     - task: NuGetCommand@2
@@ -37,7 +37,7 @@ stages:
 
 - stage: UnitTest
   jobs:
-  - job: ms-tests
+  - job: MSTests
     steps:
     - task: VSTest@2
       inputs:
