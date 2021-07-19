@@ -23,4 +23,18 @@ jobs:
     pool:
      vmImage: 'ubuntu-latest'
     steps:
-      - bash: echo "running unittests"
+      - bash: echo "windows unittests"
+
+  - job: codequality
+    displayName: 'code-quality'
+    pool:
+     vmImage: 'ubuntu-latest'
+    steps:
+      - bash: echo "running sonarqeube"
+
+  - job: deploy
+    displayName: 'deploy'
+    pool:
+     vmImage: 'windows-latest'
+    steps:
+      - bash: echo "running deploy"
