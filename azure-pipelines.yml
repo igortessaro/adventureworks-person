@@ -4,19 +4,23 @@ trigger:
 
 schedules:
   - cron: "35 17 * * *"
-    displayName: 'Agendamento pelo YAML'
+    displayName: 'Scheduled by YAML'
     branches:
       include:
         - main
     always: true
 
-pool:
-  vmImage: 'ubuntu-latest'
+jobs:
+  - job: build
+    displayName: 'build'
+    pool:
+     vmImage: 'ubuntu-latest'
+    steps:
+      - bash: echo "build application"
 
-steps:
-  - script: echo Primeiro pipeline com YAML
-    displayName: 'Script no YAML'
-  - script: |
-      echo Add other task to build, test, and deploy your project.
-      echo See https://aka.ms/yaml
-    displayName: 'Run a multi-line script'
+  - job: unittest
+    displayName: 'unit-test'
+    pool:
+     vmImage: 'ubuntu-latest'
+    steps:
+      - bash: echo "running unittests"
