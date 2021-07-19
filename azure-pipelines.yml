@@ -34,6 +34,7 @@ stages:
         - bash: echo "running deploy"
   - stage: stageB
     displayName: 'Stage B'
+    dependsOn: stageA
     jobs:
     - job: build
       displayName: 'build'
@@ -63,6 +64,7 @@ stages:
         - bash: echo "running deploy"
   - stage: stageC
     displayName: 'Stage C'
+    dependsOn: stageB
     jobs:
     - job: build
       displayName: 'build'
