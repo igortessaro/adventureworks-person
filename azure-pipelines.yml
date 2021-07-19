@@ -2,6 +2,14 @@ trigger:
 - main
 - feature/*
 
+schedules:
+  - cron: "35 17 * *"
+    displayName: 'Agendamento pelo YAML'
+    branches:
+      include:
+        - main
+    always: true
+
 pool:
   vmImage: 'ubuntu-latest'
 
