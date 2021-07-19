@@ -20,6 +20,7 @@ jobs:
 
   - job: unittest
     displayName: 'unit-test'
+    dependsOn: build
     pool:
      vmImage: 'ubuntu-latest'
     steps:
