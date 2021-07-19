@@ -2,41 +2,91 @@ trigger:
 - main
 - feature/*
 
-schedules:
-  - cron: "35 17 * * *"
-    displayName: 'Scheduled by YAML'
-    branches:
-      include:
-        - main
-    always: true
-
-jobs:
-  - job: build
-    displayName: 'build'
-    pool:
-     vmImage: 'ubuntu-latest'
-    steps:
-      - bash: echo "build application"
-
-  - job: unittest
-    displayName: 'unit-test'
-    dependsOn: build
-    condition: succeeded()
-    pool:
-     vmImage: 'ubuntu-latest'
-    steps:
-      - bash: echo "windows unittests"
-
-  - job: codequality
-    displayName: 'code-quality'
-    pool:
-     vmImage: 'ubuntu-latest'
-    steps:
-      - bash: echo "running sonarqeube"
-
-  - job: deploy
-    displayName: 'deploy'
-    pool:
-     vmImage: 'windows-latest'
-    steps:
-      - bash: echo "running deploy"
+stages:
+  - stage: stageA
+    displayName: 'Stage A'
+    jobs:
+    - job: build
+      displayName: 'build'
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "build application"
+    - job: unittest
+      displayName: 'unit-test'
+      dependsOn: build
+      condition: succeeded('build')
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "windows unittests"
+    - job: codequality
+      displayName: 'code-quality'
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "running sonarqeube"
+    - job: deploy
+      displayName: 'deploy'
+      pool:
+       vmImage: 'windows-latest'
+      steps:
+        - bash: echo "running deploy"
+  - stage: stageB
+    displayName: 'Stage B'
+    jobs:
+    - job: build
+      displayName: 'build'
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "build application"
+    - job: unittest
+      displayName: 'unit-test'
+      dependsOn: build
+      condition: succeeded('build')
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "windows unittests"
+    - job: codequality
+      displayName: 'code-quality'
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "running sonarqeube"
+    - job: deploy
+      displayName: 'deploy'
+      pool:
+       vmImage: 'windows-latest'
+      steps:
+        - bash: echo "running deploy"
+  - stage: stageC
+    displayName: 'Stage C'
+    jobs:
+    - job: build
+      displayName: 'build'
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "build application"
+    - job: unittest
+      displayName: 'unit-test'
+      dependsOn: build
+      condition: succeeded('build')
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "windows unittests"
+    - job: codequality
+      displayName: 'code-quality'
+      pool:
+       vmImage: 'ubuntu-latest'
+      steps:
+        - bash: echo "running sonarqeube"
+    - job: deploy
+      displayName: 'deploy'
+      pool:
+       vmImage: 'windows-latest'
+      steps:
+        - bash: echo "running deploy"
