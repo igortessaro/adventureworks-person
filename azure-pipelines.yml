@@ -3,7 +3,7 @@ trigger:
 - feature/*
 
 schedules:
-  - cron: "35 17 * *"
+  - cron: "35 17 * * *"
     displayName: 'Agendamento pelo YAML'
     branches:
       include:
