@@ -1,51 +1,13 @@
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-stages:
-- stage: VerifyBuild
-  jobs:
-  - job: build
-    steps:
-    - task: NuGetToolInstaller@1
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: '$(solution)'
-    - task: VSBuild@1
-      inputs:
-        solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
-        restoreNugetPackages: true
-        msbuildArchitecture: 'x64'
-        createLogFile: true
-
-- stage: UnitTest
-  jobs:
-  - job: MSTests
-    steps:
-    - task: VSTest@2
-      inputs:
-        testSelector: 'testAssemblies'
-        testAssemblyVer2: |
-          **\*test*.dll
-          !**\*TestAdapter.dll
-          !**\obj\**
-          **\**Tests.csproj**
-        searchFolder: '$(System.DefaultWorkingDirectory)'
-        testRunTitle: 'unit-test'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+steps:
+  - script: echo Primeiro pipeline com YAML
+    displayName: 'Script no YAML'
+  - script: |
+      echo Add other task to build, test, and deploy your project.
+      echo See https://aka.ms/yaml
+    displayName: 'Run a multi-line script'
