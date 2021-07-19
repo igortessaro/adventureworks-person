@@ -21,7 +21,7 @@ jobs:
   - job: unittest
     displayName: 'unit-test'
     dependsOn: 'build'
-    condition: 'success()'
+    condition: 'succeeded()'
     pool:
      vmImage: 'ubuntu-latest'
     steps:
