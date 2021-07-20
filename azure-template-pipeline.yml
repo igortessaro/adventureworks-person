@@ -1,0 +1,10 @@
+stages:
+- stage: stageA
+  displayName: 'Stage A'
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs:
+  - job: jobA
+    displayName: 'Job A'
+    steps:
+    - script: echo "Rodando a partir do Template"
