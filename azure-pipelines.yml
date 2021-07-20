@@ -12,36 +12,10 @@ stages:
        vmImage: 'ubuntu-latest'
       steps:
         - bash: echo "build application"
-    - job: unittest
-      displayName: 'unit-test'
-      dependsOn: build
-      condition: succeeded('build')
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "windows unittests"
-    - job: codequality
-      displayName: 'code-quality'
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "running sonarqeube"
-    - job: deploy
-      displayName: 'deploy'
-      pool:
-       vmImage: 'windows-latest'
-      steps:
-        - bash: echo "running deploy"
   - stage: stageB
     displayName: 'Stage B'
     dependsOn: stageA
     jobs:
-    - job: build
-      displayName: 'build'
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "build application"
     - job: unittest
       displayName: 'unit-test'
       dependsOn: build
@@ -50,42 +24,18 @@ stages:
        vmImage: 'ubuntu-latest'
       steps:
         - bash: echo "windows unittests"
-    - job: codequality
-      displayName: 'code-quality'
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "running sonarqeube"
-    - job: deploy
-      displayName: 'deploy'
-      pool:
-       vmImage: 'windows-latest'
-      steps:
-        - bash: echo "running deploy"
   - stage: stageC
     displayName: 'Stage C'
     dependsOn: stageB
     jobs:
-    - job: build
-      displayName: 'build'
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "build application"
-    - job: unittest
-      displayName: 'unit-test'
-      dependsOn: build
-      condition: succeeded('build')
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "windows unittests"
     - job: codequality
       displayName: 'code-quality'
       pool:
        vmImage: 'ubuntu-latest'
       steps:
         - bash: echo "running sonarqeube"
+  - stage: stageD
+    jobs:
     - job: deploy
       displayName: 'deploy'
       pool:
