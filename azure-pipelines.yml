@@ -33,6 +33,7 @@ stages:
       steps:
         - bash: echo "running sonarqeube"
   - stage: stageD
+    displayName: 'Stage D'
     jobs:
     - job: deploy
       displayName: 'deploy'
