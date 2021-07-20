@@ -1,19 +1,5 @@
-pool:
- vmImage: 'ubuntu-latest'
+trigger:
+  - main
 
-steps:
-  - script: echo "Usando tasks"
-    displayName: "Rodar script"
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        # Write your PowerShell commands here.
-        Write-Host "Usando Tasks no YAML"
-        Write-Host $(variable-test)
-        Write-Host $(variable-secret)
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '.'
-      ArtifactName: 'drop-yaml'
-      publishLocation: 'Container'
+extends:
+  template: azure-template-pipeline.yml
