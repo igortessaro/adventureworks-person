@@ -1,53 +1,12 @@
-trigger:
-- main
-- feature/*
+pool:
+ vmImage: 'ubuntu-latest'
 
-stages:
-  - stage: stageA
-    displayName: 'Stage A'
-    jobs:
-    - job: build
-      displayName: 'build'
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "build application"
-  - stage: stageB
-    displayName: 'Stage B'
-    dependsOn: stageA
-    jobs:
-    - job: unittest
-      displayName: 'unit-test'
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "windows unittests"
-  - stage: stageC
-    displayName: 'Stage C'
-    dependsOn: stageB
-    jobs:
-    - job: codequality
-      displayName: 'code-quality'
-      pool:
-       vmImage: 'ubuntu-latest'
-      steps:
-        - bash: echo "running sonarqeube"
-  - stage: stageD
-    displayName: 'Stage D'
-    dependsOn: stageB
-    jobs:
-    - job: deploy
-      displayName: 'deploy'
-      pool:
-       vmImage: 'windows-latest'
-      steps:
-        - bash: echo "running deploy"
-  - stage: stageE
-    displayName: 'Stage E'
-    jobs:
-    - job: deploy
-      displayName: 'deploy'
-      pool:
-       vmImage: 'windows-latest'
-      steps:
-        - bash: echo "running deploy"
+steps:
+  - script: echo "Usando tasks"
+    displayName: "Rodar script"
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Write your PowerShell commands here.
+        Write-Host "Usando Tasks no YAML"
