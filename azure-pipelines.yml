@@ -34,6 +34,7 @@ stages:
         - bash: echo "running sonarqeube"
   - stage: stageD
     displayName: 'Stage D'
+    dependsOn: stageB
     jobs:
     - job: deploy
       displayName: 'deploy'
