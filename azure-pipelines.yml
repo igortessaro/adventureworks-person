@@ -10,6 +10,8 @@ steps:
       script: |
         # Write your PowerShell commands here.
         Write-Host "Usando Tasks no YAML"
+        Write-Host $(variable-test)
+        Write-Host $(variable-secret)
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '.'
