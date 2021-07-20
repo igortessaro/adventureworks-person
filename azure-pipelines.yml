@@ -10,3 +10,8 @@ steps:
       script: |
         # Write your PowerShell commands here.
         Write-Host "Usando Tasks no YAML"
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '.'
+      ArtifactName: 'drop-yaml'
+      publishLocation: 'Container'
