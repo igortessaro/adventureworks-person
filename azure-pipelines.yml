@@ -1,5 +1,14 @@
 trigger:
   - main
 
-extends:
-  template: azure-template-pipeline.yml
+jobs:
+  - job: job1
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: step1.yml
+  - job: job2
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: step2.yml
