@@ -42,3 +42,12 @@ stages:
        vmImage: 'windows-latest'
       steps:
         - bash: echo "running deploy"
+  - stage: stageE
+    displayName: 'Stage E'
+    jobs:
+    - job: deploy
+      displayName: 'deploy'
+      pool:
+       vmImage: 'windows-latest'
+      steps:
+        - bash: echo "running deploy"
