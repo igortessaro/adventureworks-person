@@ -17,7 +17,6 @@ namespace AdventureWorks.Person.Api
                 {
                     _ = logging.ClearProviders();
                     _ = logging.AddConsole();
-                    _ = logging.AddEventLog();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
