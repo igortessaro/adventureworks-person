@@ -8,7 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Solution Items", "0 - S
 		.dockerignore = .dockerignore
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{F1739E35-F9F1-4B39-B1EE-12D55FF1513C}"
@@ -25,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Person.Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{E4548912-E784-42DC-9EF3-E81F0DF8C0B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Person.Domain.Tests", "AdventureWorks.Person.Domain.Tests\AdventureWorks.Person.Domain.Tests.csproj", "{7E9D6466-12B5-4444-AB23-4BF5F76879C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Person.Domain.Tests", "AdventureWorks.Person.Domain.Tests\AdventureWorks.Person.Domain.Tests.csproj", "{7E9D6466-12B5-4444-AB23-4BF5F76879C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
