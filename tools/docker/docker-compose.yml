@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  adventureworks-person-database:
+    container_name: adventureworks-person-database
+    image: igortessaro/adventureworks-sqlserver-database:latest
+    ports: 
+      - "1433:1433"
+    restart: always
+    networks: 
+      - adventureworks-person-network
+  adventureworks-person-api:
+    depends_on: 
+      - adventureworks-person-database
+    build:
+      context: ../../src/
+      dockerfile: Dockerfile
+    container_name: adventureworks-person-api
+    ports:
+      - "80:80"
+    restart: always
+    networks: 
+      - adventureworks-person-network
+
+networks:
+  adventureworks-person-network:
