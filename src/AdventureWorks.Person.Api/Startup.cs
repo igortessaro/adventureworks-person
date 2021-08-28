@@ -34,13 +34,9 @@ namespace AdventureWorks.Person.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                _ = app.UseDeveloperExceptionPage();
-                _ = app.UseSwagger();
-                _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventureWorks.Person.Api v1"));
-            }
-
+            _ = app.UseDeveloperExceptionPage();
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventureWorks.Person.Api v1"));
             _ = app.UseHttpsRedirection();
             _ = app.UseRouting();
             _ = app.UseAuthorization();
