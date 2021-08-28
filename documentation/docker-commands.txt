@@ -1,0 +1,4 @@
+# build image
+docker build -t igortessaro/adventureworks-person-api .
+# run container
+docker run --name adventureworks-person-api -p 80:80 -d --rm igortessaro/adventureworks-person-api
