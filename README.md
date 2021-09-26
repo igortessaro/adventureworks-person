@@ -42,6 +42,8 @@ This project was created to practice software development techniques and also th
 | Serilog.AspNetCore | 4.1.0
 | Serilog.Sinks.Console | 4.0.0
 | Serilog.Sinks.Seq | 5.0.1
+| AspNetCore.HealthChecks.SqlServer | 5.0.3
+| Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore | 5.0.10
 
 ## Solution Projects
 
@@ -65,6 +67,22 @@ In this section, all dependencies that the project has for its functioning will 
 Was chosen to use a microsoft example database, adventureworks which can be downloaded from this [link](https://docs.microsoft.com/pt-br/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms).
 To facilitate the process, a docker image was created that contains this database: [adventureworks-sqlserver-database](https://hub.docker.com/repository/docker/igortessaro/adventureworks-sqlserver-database)
 
+## Logging
+
+The application has using Serilog and Seq to log, for to view logs access ```http://localhost:5341/``` <br/>
+For more informations read:
+
+* [Serilog](https://serilog.net/)
+* [Seq](https://datalust.co/)
+
+## Health Check
+
+This application uses [Health Checks](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-5.0) to verify the application's health and dependencies.
+
+* ```http://localhost/health```: for check with dependencies
+* ```http://localhost/health/ready```: for the readiness check. The readiness check filters health checks to the health check with the ready tag.
+* ```http://localhost/health/live```: for the liveness check. The liveness check filters out the StartupHostedServiceHealthCheck by returning false in the [HealthCheckOptions.Predicate](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.diagnostics.healthchecks.healthcheckoptions.predicate?view=aspnetcore-5.0#Microsoft_AspNetCore_Diagnostics_HealthChecks_HealthCheckOptions_Predicate) (for more information, see [Filter health checks](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-5.0#filter-health-checks))
+
 ## Get Started
 
 ### Step 1: Clone this repository
@@ -80,11 +98,3 @@ Make sure you are in the `tools/docker` folder to run the command below
 ```console
 docker compose up -d --build
 ```
-
-## Logging
-
-The application has using Serilog and Seq to log, for to view logs access ```http://localhost:5341/``` <br/>
-For more informations read:
-
-* [Serilog](https://serilog.net/)
-* [Seq](https://datalust.co/)
