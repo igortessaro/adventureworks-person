@@ -3,6 +3,7 @@
 This project was created to practice software development techniques and also the use of framworks and tools.
 
 ### Folder Structure
+
 ```console
   ./
   ├── ci  -> configuration files for pipelines
@@ -38,6 +39,9 @@ This project was created to practice software development techniques and also th
 | MSTest | 2.2.3
 | NSubstitute | 4.2.2
 | Docker | 20.10.8
+| Serilog.AspNetCore | 4.1.0
+| Serilog.Sinks.Console | 4.0.0
+| Serilog.Sinks.Seq | 5.0.1
 
 ## Solution Projects
 
@@ -64,11 +68,23 @@ To facilitate the process, a docker image was created that contains this databas
 ## Get Started
 
 ### Step 1: Clone this repository
+
 ```console
-$ git clone https://github.com/igortessaro/adventureworks-person.git
+git clone https://github.com/igortessaro/adventureworks-person.git
 ```
+
 ### Step 2: Run application using docker compose
+
 Make sure you are in the `tools/docker` folder to run the command below
+
 ```console
-$ docker compose up -d --build
+docker compose up -d --build
 ```
+
+## Logging
+
+The application has using Serilog and Seq to log, for to view logs access ```http://localhost:5341/``` <br/>
+For more informations read:
+
+* [Serilog](https://serilog.net/)
+* [Seq](https://datalust.co/)
