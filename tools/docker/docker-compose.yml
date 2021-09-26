@@ -4,10 +4,10 @@ services:
   adventureworks-person-database:
     container_name: adventureworks-person-database
     image: igortessaro/adventureworks-sqlserver-database:latest
-    ports: 
+    ports:
       - "1433:1433"
     restart: always
-    networks: 
+    networks:
       - adventureworks-person-network
   adventureworks-person-api:
     depends_on: 
@@ -19,8 +19,18 @@ services:
     ports:
       - "80:80"
     restart: always
-    networks: 
+    networks:
       - adventureworks-person-network
+  logging-seq-service:
+    container_name: logging-seq
+    image: datalust/seq
+    ports:
+      - "5341:80"
+    restart: always
+    networks:
+      - adventureworks-person-network
+    environment:
+      - "ACCEPT_EULA=Y"
 
 networks:
   adventureworks-person-network:
