@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adventureworks-person-service
+spec:
+  selector:
+    app: adventureworks-person-app
+  ports:
+    - protocol: 'TCP'
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adventureworks-person-api-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: adventureworks-person-app
+  template:
+    metadata:
+      labels:
+        app: adventureworks-person-app
+    spec:
+      containers:
+        - name: adventureworks-person-api
+          image: igortessaro/adventureworks-person-api:latest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adventureworks-sqlserver-database-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adventureworks-sqlserver-database
+  template:
+    metadata:
+      labels:
+        app: adventureworks-sqlserver-database
+    spec:
+      containers:
+        - name: adventureworks-person-database
+          image: igortessaro/adventureworks-sqlserver-database:latest
