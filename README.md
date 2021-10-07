@@ -91,6 +91,16 @@ This application uses [Health Checks](https://docs.microsoft.com/en-us/aspnet/co
 git clone https://github.com/igortessaro/adventureworks-person.git
 ```
 
+### Enable HTTPS Certificate
+
+Execute these commands into PowerShell:
+
+```console
+dotnet dev-certs https --clean
+dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p Pa1153w0rd
+dotnet dev-certs https --trust
+```
+
 ### Step 2: Run application using docker compose
 
 Make sure you are in the `tools/docker` folder to run the command below
