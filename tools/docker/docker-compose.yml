@@ -4,10 +4,10 @@ services:
   adventureworks-person-database:
     container_name: adventureworks-person-database
     image: igortessaro/adventureworks-sqlserver-database:latest
-    ports: 
+    ports:
       - "1433:1433"
     restart: always
-    networks: 
+    networks:
       - adventureworks-person-network
   adventureworks-person-api:
     depends_on: 
@@ -17,10 +17,28 @@ services:
       dockerfile: Dockerfile
     container_name: adventureworks-person-api
     ports:
-      - "80:80"
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5001;http://+:5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Pa1153w0rd
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
     restart: always
-    networks: 
+    networks:
       - adventureworks-person-network
+  logging-seq-service:
+    container_name: logging-seq
+    image: datalust/seq
+    ports:
+      - "5341:80"
+    restart: always
+    networks:
+      - adventureworks-person-network
+    environment:
+      - "ACCEPT_EULA=Y"
 
 networks:
   adventureworks-person-network:
