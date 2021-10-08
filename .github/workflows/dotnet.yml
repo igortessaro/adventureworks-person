@@ -11,33 +11,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+
     - name: Restore dependencies
       run: dotnet restore ./src/AdventureWorks.Person.sln
+
     - name: Build
       run: dotnet build --no-restore ./src/AdventureWorks.Person.sln
+
     - name: Test
       run: dotnet test --no-build --verbosity normal ./src/AdventureWorks.Person.Domain.Tests/AdventureWorks.Person.Domain.Tests.csproj
+
   sonarcloud-scan:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.11
       - uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          dotnet-version: 5.0.x
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v1
@@ -45,12 +51,14 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
+
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        shell: powershell
-        run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+        run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+
+      - name: Install project dependencies
+        run: dotnet restore ./src/AdventureWorks.Person.sln
+
       - name: Test and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -58,7 +66,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"igortessaro_adventureworks-person" /o:"igortessaro" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet test ./src/AdventureWorks.Person.Domain.Tests/AdventureWorks.Person.Domain.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx ./src/AdventureWorks.Person.Domain.Tests/AdventureWorks.Person.Domain.Tests.csproj
+          dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx ./src/AdventureWorks.Person.Domain.Tests/AdventureWorks.Person.Domain.Tests.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
       - name: Build and analyze
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore ./src/AdventureWorks.Person.sln
