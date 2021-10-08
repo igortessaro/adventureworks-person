@@ -74,6 +74,7 @@ jobs:
         shell: powershell
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"igortessaro_adventureworks-person" /o:"igortessaro" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build --configuration Release --no-restore ./src/AdventureWorks.Person.sln
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx ./src/AdventureWorks.Person.Domain.Tests/AdventureWorks.Person.Domain.Tests.csproj
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
