@@ -1,4 +1,4 @@
-﻿using AdventureWorks.Person.Domain.Repositories.Core;
+using AdventureWorks.Person.Domain.Repositories.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,7 @@ namespace AdventureWorks.Person.Infrastructure.Repositories.Relational.Core
         private readonly PersonContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        public BaseRepository(PersonContext context, IMapper mapper)
+        protected BaseRepository(PersonContext context, IMapper mapper)
         {
             this._context = context;
             this._dbSet = this._context.Set<TEntity>();

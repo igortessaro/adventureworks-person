@@ -4,7 +4,6 @@ using AdventureWorks.Person.Infrastructure.Repositories.Relational;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,12 +37,10 @@ namespace AdventureWorks.Person.Api
             _ = services.AddInfrastructureAutoMapper();
             _ = services.AddTransient<IPersonService, PersonService>();
             _ = services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("AdventureWorks.Person")).ToArray());
-            _ = services.AddHealthChecks()
-                .AddSqlServer(connectionString)
-                .AddDbContextCheck<PersonContext>();
+            _ = services.AddHealthChecks().AddSqlServer(connectionString).AddDbContextCheck<PersonContext>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             _ = app.UseDeveloperExceptionPage();
             _ = app.UseSwagger();

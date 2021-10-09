@@ -1,4 +1,4 @@
-﻿using AdventureWorks.Person.Domain.Entities;
+using AdventureWorks.Person.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -6,28 +6,28 @@ namespace AdventureWorks.Person.Infrastructure.Repositories.Relational.Configura
 {
     public sealed class CountryRegionConfiguration : IEntityTypeConfiguration<CountryRegion>
     {
-        public void Configure(EntityTypeBuilder<CountryRegion> entity)
+        public void Configure(EntityTypeBuilder<CountryRegion> builder)
         {
-            entity.HasKey(e => e.CountryRegionCode)
+            builder.HasKey(e => e.CountryRegionCode)
                 .HasName("PK_CountryRegion_CountryRegionCode");
 
-            entity.ToTable("CountryRegion", "Person");
+            builder.ToTable("CountryRegion", "Person");
 
-            entity.HasComment("Lookup table containing the ISO standard codes for countries and regions.");
+            builder.HasComment("Lookup table containing the ISO standard codes for countries and regions.");
 
-            entity.HasIndex(e => e.Name, "AK_CountryRegion_Name")
+            builder.HasIndex(e => e.Name, "AK_CountryRegion_Name")
                 .IsUnique();
 
-            entity.Property(e => e.CountryRegionCode)
+            builder.Property(e => e.CountryRegionCode)
                 .HasMaxLength(3)
                 .HasComment("ISO standard code for countries and regions.");
 
-            entity.Property(e => e.ModifiedDate)
+            builder.Property(e => e.ModifiedDate)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("(getdate())")
                 .HasComment("Date and time the record was last updated.");
 
-            entity.Property(e => e.Name)
+            builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasComment("Country or region name.");

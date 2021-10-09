@@ -1,4 +1,4 @@
-﻿using AdventureWorks.Person.Domain.Entities;
+using AdventureWorks.Person.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -6,25 +6,25 @@ namespace AdventureWorks.Person.Infrastructure.Repositories.Relational.Configura
 {
     public sealed class ContactTypeConfiguration : IEntityTypeConfiguration<ContactType>
     {
-        public void Configure(EntityTypeBuilder<ContactType> entity)
+        public void Configure(EntityTypeBuilder<ContactType> builder)
         {
-            entity.ToTable("ContactType", "Person");
+            builder.ToTable("ContactType", "Person");
 
-            entity.HasComment("Lookup table containing the types of business entity contacts.");
+            builder.HasComment("Lookup table containing the types of business entity contacts.");
 
-            entity.HasIndex(e => e.Name, "AK_ContactType_Name")
+            builder.HasIndex(e => e.Name, "AK_ContactType_Name")
                 .IsUnique();
 
-            entity.Property(e => e.ContactTypeId)
+            builder.Property(e => e.ContactTypeId)
                 .HasColumnName("ContactTypeID")
                 .HasComment("Primary key for ContactType records.");
 
-            entity.Property(e => e.ModifiedDate)
+            builder.Property(e => e.ModifiedDate)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("(getdate())")
                 .HasComment("Date and time the record was last updated.");
 
-            entity.Property(e => e.Name)
+            builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasComment("Contact type description.");
