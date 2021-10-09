@@ -7,10 +7,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
@@ -49,9 +51,13 @@ namespace AdventureWorks.Person.Api
             _ = services.AddHealthChecks().AddSqlServer(connectionString).AddDbContextCheck<PersonContext>();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            _ = app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())
+            {
+                _ = app.UseDeveloperExceptionPage();
+            }
+
             _ = app.UseSwagger();
             _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventureWorks.Person.Api v1"));
             _ = app.UseHttpsRedirection();
