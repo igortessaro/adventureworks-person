@@ -9,10 +9,11 @@
     <Folder Include="Extensions\" />
     <Folder Include="Facades\" />
     <Folder Include="Gateways\" />
+    <Folder Include="Mediator\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="7.5.2" />
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
     <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 

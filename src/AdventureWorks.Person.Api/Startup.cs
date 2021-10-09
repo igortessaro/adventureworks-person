@@ -1,5 +1,7 @@
+using AdventureWorks.Person.Api.Filters;
 using AdventureWorks.Person.Domain.Services;
 using AdventureWorks.Person.Domain.Services.Abstraction;
+using AdventureWorks.Person.Infrastructure.Mediator;
 using AdventureWorks.Person.Infrastructure.Repositories.Relational;
 using FluentValidation;
 using MediatR;
@@ -32,7 +34,9 @@ namespace AdventureWorks.Person.Api
         {
             var connectionString = this.Configuration.GetConnectionString("PersonDbConnection");
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("AdventureWorks.Person")).ToList();
-            _ = services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            _ = services
+                .AddControllers(options => options.Filters.Add<NotificationFilter>())
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             _ = services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdventureWorks.Person.Api", Version = "v1" }));
             _ = services.AddPersonContext(connectionString);
             _ = services.AddInfrastructureRepositories();

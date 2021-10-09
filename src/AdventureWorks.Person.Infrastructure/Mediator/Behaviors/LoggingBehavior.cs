@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AdventureWorks.Person.Api
+namespace AdventureWorks.Person.Infrastructure.Mediator
 {
     public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

@@ -7,12 +7,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AdventureWorks.Person.Api
+namespace AdventureWorks.Person.Infrastructure.Mediator
 {
     public class FailFastRequestBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse> where TResponse : Notification
     {
-        private readonly IEnumerable<IValidator> _validators;
+        private readonly IEnumerable<IValidator<TRequest>> _validators;
 
         public FailFastRequestBehavior(IEnumerable<IValidator<TRequest>> validators)
         {
