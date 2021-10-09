@@ -1,10 +1,10 @@
-﻿using AdventureWorks.Person.Domain.Notification;
 using AdventureWorks.Person.Domain.Repositories;
 using AdventureWorks.Person.Domain.Repositories.Query;
 using AdventureWorks.Person.Infrastructure.Repositories.Relational.Core;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,14 +17,14 @@ namespace AdventureWorks.Person.Infrastructure.Repositories.Relational
         {
         }
 
-        public async Task<Notification<List<PersonSummaryDto>>> GetAll()
+        public async Task<IReadOnlyCollection<PersonSummaryDto>> GetAll()
         {
             var result = await this.Query<PersonSummaryDto>().Take(10).ToListAsync();
 
-            return new Notification<List<PersonSummaryDto>>(result);
+            return new ReadOnlyCollection<PersonSummaryDto>(result);
         }
 
-        public async Task<Notification<List<PersonSummaryDto>>> GetCompleteByName(string name)
+        public async Task<IReadOnlyCollection<PersonSummaryDto>> GetCompleteByName(string name)
         {
             string nameUpper = name.ToUpper();
 
@@ -39,7 +39,7 @@ namespace AdventureWorks.Person.Infrastructure.Repositories.Relational
                 })
                 .ToListAsync();
 
-            return new Notification<List<PersonSummaryDto>>(result);
+            return new ReadOnlyCollection<PersonSummaryDto>(result);
         }
 
         private IQueryable<Domain.Entities.Person> QueryComplete()

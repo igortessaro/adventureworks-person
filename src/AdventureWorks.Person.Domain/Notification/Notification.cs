@@ -1,35 +1,39 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace AdventureWorks.Person.Domain.Notification
+namespace AdventureWorks.Person.Domain
 {
-    public sealed class Notification<TData> where TData : class
+    public class Notification
     {
+        private readonly IList<string> _erros = new List<string>();
+
         public Notification()
         {
-            this.ValidationMessages = new List<string>();
         }
 
-        public Notification(TData data)
+        public Notification(object data)
             : this()
         {
             this.Data = data;
         }
 
-        public TData Data { get; set; }
+        public object Data { get; set; }
 
-        public List<string> ValidationMessages { get; set; }
+        public IReadOnlyCollection<string> ValidationMessages => new ReadOnlyCollection<string>(this._erros);
 
         public bool IsValid => !ValidationMessages.Any();
 
-        public void AddValidation(string message)
+        public Notification AddValidation(string message)
         {
-            this.ValidationMessages.Add(message);
+            this._erros.Add(message);
+            return this;
         }
 
-        public void SetData(TData data)
+        public Notification SetData(object data)
         {
             this.Data = data;
+            return this;
         }
     }
 }

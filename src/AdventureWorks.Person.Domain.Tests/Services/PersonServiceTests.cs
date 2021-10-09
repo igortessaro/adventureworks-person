@@ -1,4 +1,4 @@
-﻿using AdventureWorks.Person.Domain.Services;
+using AdventureWorks.Person.Domain.Services;
 using AdventureWorks.Person.Domain.Services.Abstraction;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,7 +28,7 @@ namespace AdventureWorks.Person.Domain.Tests.Services
             var result = this._personService.Create(firstName, middleName, lastName);
 
             // Assert
-            result.IsValid.Should().BeFalse();
+            result.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace AdventureWorks.Person.Domain.Tests.Services
             var result = this._personService.Create(firstName, middleName, lastName);
 
             // Assert
-            result.IsValid.Should().BeFalse();
+            result.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace AdventureWorks.Person.Domain.Tests.Services
             var result = this._personService.Create(firstName, middleName, lastName);
 
             // Assert
-            result.IsValid.Should().BeFalse();
+            result.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
@@ -73,7 +73,7 @@ namespace AdventureWorks.Person.Domain.Tests.Services
             var result = this._personService.Create(firstName, middleName, lastName);
 
             // Assert
-            result.IsValid.Should().BeTrue();
+            result.Should().NotBeNullOrEmpty();
         }
     }
 }
