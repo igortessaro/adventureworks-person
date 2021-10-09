@@ -1,6 +1,9 @@
+using AdventureWorks.Person.Api.Filters;
 using AdventureWorks.Person.Domain.Services;
 using AdventureWorks.Person.Domain.Services.Abstraction;
+using AdventureWorks.Person.Infrastructure.Mediator;
 using AdventureWorks.Person.Infrastructure.Repositories.Relational;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -29,14 +32,20 @@ namespace AdventureWorks.Person.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = this.Configuration.GetConnectionString("PersonDbConnection");
-            _ = services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            var connectionString = this.Configuration.GetConnectionString("PersonDbConnection");
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("AdventureWorks.Person")).ToList();
+            _ = services
+                .AddControllers(options => options.Filters.Add<NotificationFilter>())
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             _ = services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "AdventureWorks.Person.Api", Version = "v1" }));
             _ = services.AddPersonContext(connectionString);
             _ = services.AddInfrastructureRepositories();
             _ = services.AddInfrastructureAutoMapper();
             _ = services.AddTransient<IPersonService, PersonService>();
-            _ = services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("AdventureWorks.Person")).ToArray());
+            assemblies.ForEach(assembly => AssemblyScanner.FindValidatorsInAssembly(assembly).ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType)));
+            _ = services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            _ = services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));
+            _ = services.AddMediatR(assemblies.ToArray());
             _ = services.AddHealthChecks().AddSqlServer(connectionString).AddDbContextCheck<PersonContext>();
         }
 

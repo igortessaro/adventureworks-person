@@ -1,4 +1,4 @@
-﻿using AdventureWorks.Person.Domain.Commands.Person;
+using AdventureWorks.Person.Domain.Commands.Person;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
