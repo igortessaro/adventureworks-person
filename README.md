@@ -29,19 +29,19 @@ This project was created to practice software development techniques and also th
 
 | Dependency | Version
 | :--- | ---:
-| .Net Core | 5.0
+| .Net Core | 6.0
 | EntityFrameworkCore | 5.0.7
-| MediatR | 9.0.0
+| MediatR | 10.0.1
 | Newtonsof | 13.0.1
-| Swagger | 6.1.4
+| Swagger | 6.4.0
 | AutoMapper | 10.1.1
-| FluentAssertions | 5.10.3
+| FluentAssertions | 11.2.0
 | MSTest | 2.2.3
 | NSubstitute | 4.2.2
 | Docker | 20.10.8
-| Serilog.AspNetCore | 4.1.0
-| Serilog.Sinks.Console | 4.0.0
-| Serilog.Sinks.Seq | 5.0.1
+| Serilog.AspNetCore | 6.0.1
+| Serilog.Sinks.Console | 4.0.1
+| Serilog.Sinks.Seq | 5.1.1
 | AspNetCore.HealthChecks.SqlServer | 5.0.3
 | Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore | 5.0.10
 
